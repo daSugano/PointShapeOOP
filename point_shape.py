@@ -35,10 +35,10 @@ class Ellipse(Shape):
         self.__long_axis = long_axis
 
     @staticmethod
-    def calculate_distance(source: TwoDPoint, target: TwoDPoint) -> float:
+    def __calculate_distance(source: TwoDPoint, target: TwoDPoint) -> float:
         return math.sqrt((source.get_x() - target.get_x())**2 + (source.get_y() - target.get_y())**2)
 
-    def calculate_focus_distance(self, target: TwoDPoint) -> float:
+    def __calculate_focus_distance(self, target: TwoDPoint) -> float:
         """
         楕円には焦点が2つある。
         なお、ある楕円において、first_focus = second_focusであることと、
@@ -46,7 +46,7 @@ class Ellipse(Shape):
         """
         first_focus = self.__focus[0]
         second_focus = self.__focus[1]
-        return self.calculate_distance(target, first_focus) + self.calculate_distance(target, second_focus)
+        return self.__calculate_distance(target, first_focus) + self.__calculate_distance(target, second_focus)
 
     def doesContain(self, target: TwoDPoint) -> bool:
         """
@@ -56,12 +56,12 @@ class Ellipse(Shape):
         を設定し、差の絶対値が許容誤差未満ならTrueを返すなど工夫が必要
         """
         allowable_error = 1.0 * 10 ** (-10)
-        return abs(self.calculate_focus_distance(target) - self.__long_axis) < allowable_error
+        return abs(self.__calculate_focus_distance(target) - self.__long_axis) < allowable_error
 
 
 class Polygon(Shape):
     def __init__(self, points: List[TwoDPoint]) -> None:
-        self._points = points
+        self.__points = points
 
     def doesContain(self, target: TwoDPoint) -> bool:
         """
