@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  pyoop:
+    build: ./python-docker
+    container_name: 'pyoop'
+    tty: true
+    volumes:
+      - .:/app/oop
